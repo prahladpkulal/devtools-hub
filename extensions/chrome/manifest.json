@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "DevTools Hub — Developer Toolkit",
+  "version": "1.0.0",
+  "description": "Fast, privacy-first developer utilities in a Chrome popup, side panel and right-click menu.",
+  "minimum_chrome_version": "114",
+  "permissions": ["storage", "contextMenus", "sidePanel"],
+  "action": {
+    "default_title": "DevTools Hub",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "options_page": "options.html"
+}
