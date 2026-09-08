@@ -20,7 +20,8 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (!info.selectionText) return;
-  const url = 'chrome-extension://' + chrome.runtime.id + '/popup.html?tool=' + encodeURIComponent(info.menuItemId.replace('dh-', '')) + '&input=' + encodeURIComponent(info.selectionText);
-  chrome.windows.create({url, type: 'popup', width: 460, height: 650});
+  if (!info.selectionText || !tab || !tab.id) return;
+  const tool = info.menuItemId.replace('dh-', '');
+  chrome.storage.local.set({pendingTool: tool, pendingInput: info.selectionText});
+  chrome.sidePanel.open({tabId: tab.id}).catch(() => {});
 });
