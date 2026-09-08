@@ -36,31 +36,44 @@
   <div class="search-wrap"><label class="sr-only" for="toolSearch">Search tools</label><input id="toolSearch" type="search" placeholder="Search tools — JSON, SQL, Base64, salary..." aria-label="Search tools" autocomplete="off"></div>
   <div class="quick-links" aria-label="Popular tools"><a href="/tools/json-formatter.html">JSON Formatter</a><a href="/tools/sql-formatter.html">SQL Formatter</a><a href="/tools/base64.html">Base64</a><a href="/tools/salary-hike.html">Salary Hike</a></div>
 </div></section>
+
+<section class="container section tool-discovery" aria-label="Find a tool">
+  <div class="section-heading"><div><p class="eyebrow">FIND A TOOL</p><h2>What do you need?</h2><p class="section-intro">Search by name or filter the collection by category.</p></div></div>
+  <div class="filter-bar" role="group" aria-label="Tool categories">
+    <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All tools</button>
+    <button class="filter-btn" type="button" data-filter="developer" aria-pressed="false">Developer</button>
+    <button class="filter-btn" type="button" data-filter="finance" aria-pressed="false">Finance</button>
+  </div>
+</section>
+
 <section class="container section" id="developer-tools">
   <div class="section-heading"><div><p class="eyebrow">DEVELOPERS</p><h2>Developer tools</h2><p class="section-intro">Practical browser-based utilities for everyday development and IT work.</p></div></div>
   <div class="grid">
-    <a class="tool-card" data-name="json formatter validator minifier" href="/tools/json-formatter.html"><span>⌘</span><h3>JSON Formatter</h3><p>Format, validate and minify JSON.</p><small>Popular</small></a>
-    <a class="tool-card" data-name="xml formatter validator" href="/tools/xml-formatter.html"><span>&lt;/&gt;</span><h3>XML Formatter</h3><p>Pretty-print and validate XML.</p><small>Developer</small></a>
-    <a class="tool-card" data-name="sql formatter query" href="/tools/sql-formatter.html"><span>SQL</span><h3>SQL Formatter</h3><p>Quickly format SQL for readability.</p><small>Developer</small></a>
-    <a class="tool-card" data-name="base64 encoder decoder" href="/tools/base64.html"><span>64</span><h3>Base64 Encoder / Decoder</h3><p>Encode or decode Base64 locally.</p><small>Developer</small></a>
-    <a class="tool-card" data-name="url encoder decoder uri" href="/tools/url-encoder.html"><span>↗</span><h3>URL Encoder / Decoder</h3><p>Encode and decode URL components.</p><small>Developer</small></a>
-    <a class="tool-card" data-name="epoch timestamp unix converter" href="/tools/epoch.html"><span>◷</span><h3>Epoch Converter</h3><p>Convert Unix timestamps to dates.</p><small>Developer</small></a>
-    <a class="tool-card" data-name="cron generator expression scheduler" href="/tools/cron.html"><span>⏱</span><h3>Cron Generator</h3><p>Build common five-field cron expressions.</p><small>Developer</small></a>
-  </div><p class="no-results" id="noResults" hidden>No tools match your search. Try JSON, SQL, Base64, timestamp or cron.</p>
+    <a class="tool-card" data-category="developer" data-name="json formatter validator minifier" href="/tools/json-formatter.html"><span>⌘</span><h3>JSON Formatter</h3><p>Format, validate and minify JSON.</p><small>Popular</small></a>
+    <a class="tool-card" data-category="developer" data-name="xml formatter validator" href="/tools/xml-formatter.html"><span>&lt;/&gt;</span><h3>XML Formatter</h3><p>Pretty-print and validate XML.</p><small>Developer</small></a>
+    <a class="tool-card" data-category="developer" data-name="sql formatter query" href="/tools/sql-formatter.html"><span>SQL</span><h3>SQL Formatter</h3><p>Quickly format SQL for readability.</p><small>Developer</small></a>
+    <a class="tool-card" data-category="developer" data-name="base64 encoder decoder" href="/tools/base64.html"><span>64</span><h3>Base64 Encoder / Decoder</h3><p>Encode or decode Base64 locally.</p><small>Developer</small></a>
+    <a class="tool-card" data-category="developer" data-name="url encoder decoder uri" href="/tools/url-encoder.html"><span>↗</span><h3>URL Encoder / Decoder</h3><p>Encode and decode URL components.</p><small>Developer</small></a>
+    <a class="tool-card" data-category="developer" data-name="epoch timestamp unix converter" href="/tools/epoch.html"><span>◷</span><h3>Epoch Converter</h3><p>Convert Unix timestamps to dates.</p><small>Developer</small></a>
+    <a class="tool-card" data-category="developer" data-name="cron generator expression scheduler" href="/tools/cron.html"><span>⏱</span><h3>Cron Generator</h3><p>Build common five-field cron expressions.</p><small>Developer</small></a>
+  </div>
 </section>
+
 <section class="container section" id="finance-tools">
   <div class="section-heading"><div><p class="eyebrow">MONEY</p><h2>Finance tools</h2><p class="section-intro">Simple calculators for salary, CTC and everyday percentage calculations.</p></div></div>
   <div class="grid">
-    <a class="tool-card" data-name="salary hike increment calculator ctc raise" href="/tools/salary-hike.html"><span>₹</span><h3>Salary Hike Calculator</h3><p>Calculate increment percentage and new CTC.</p><small>Finance</small></a>
-    <a class="tool-card" data-name="ctc in hand salary calculator monthly gross" href="/tools/ctc-calculator.html"><span>₹</span><h3>CTC / In-Hand Calculator</h3><p>Estimate monthly salary from annual CTC.</p><small>Finance</small></a>
-    <a class="tool-card" data-name="percentage calculator percent change" href="/tools/percentage.html"><span>%</span><h3>Percentage Calculator</h3><p>Calculate percentages and changes.</p><small>Finance</small></a>
+    <a class="tool-card" data-category="finance" data-name="salary hike increment calculator ctc raise" href="/tools/salary-hike.html"><span>₹</span><h3>Salary Hike Calculator</h3><p>Calculate increment percentage and new CTC.</p><small>Finance</small></a>
+    <a class="tool-card" data-category="finance" data-name="ctc in hand salary calculator monthly gross" href="/tools/ctc-calculator.html"><span>₹</span><h3>CTC / In-Hand Calculator</h3><p>Estimate monthly salary from annual CTC.</p><small>Finance</small></a>
+    <a class="tool-card" data-category="finance" data-name="percentage calculator percent change" href="/tools/percentage.html"><span>%</span><h3>Percentage Calculator</h3><p>Calculate percentages and changes.</p><small>Finance</small></a>
   </div>
 </section>
+
 <section class="container section seo-copy">
+  <h2>Popular tools</h2>
+  <div class="popular-list"><a href="/tools/json-formatter.html"><strong>JSON Formatter</strong><span>Format and validate JSON online</span></a><a href="/tools/sql-formatter.html"><strong>SQL Formatter</strong><span>Make SQL queries easier to read</span></a><a href="/tools/salary-hike.html"><strong>Salary Hike Calculator</strong><span>Calculate your new salary after an increment</span></a></div>
   <h2>Why use DevTools Hub?</h2>
   <div class="benefits"><div><strong>Fast</strong><p>Lightweight pages load quickly and are designed for focused tasks.</p></div><div><strong>Private by design</strong><p>Supported developer tools process input locally in your browser rather than uploading it.</p></div><div><strong>No signup</strong><p>Open a tool, enter your values and get the result without creating an account.</p></div></div>
-  <h2>Built for quick answers</h2><p>Whether you need to format JSON, inspect XML, clean up SQL, encode Base64, convert a Unix timestamp, create a cron expression or calculate a salary increase, DevTools Hub is designed to get you to the result quickly.</p>
 </section></main>
 <footer><div class="container footer-inner"><div><strong>DevTools Hub</strong><p>Useful tools, built for speed.</p></div><div><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a></div></div><div class="container copyright">© 2026 DevTools Hub</div></footer>
-<script src="/assets/app.js"></script><script src="/assets/seo.js"></script><script src="/assets/analytics.js"></script>
+<script src="/assets/app.js"></script><script src="/assets/seo.js"></script><script src="/assets/analytics.js"></script><script src="/assets/ux.js"></script>
 </body></html>
