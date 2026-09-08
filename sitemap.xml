@@ -1,1 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://YOUR-DOMAIN.com/</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/json-formatter.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/xml-formatter.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/sql-formatter.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/base64.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/url-encoder.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/epoch.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/cron.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/salary-hike.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/ctc-calculator.html</loc></url><url><loc>https://YOUR-DOMAIN.com/tools/percentage.html</loc></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/json-formatter.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/xml-formatter.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/sql-formatter.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/base64.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/url-encoder.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/epoch.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/cron.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/salary-hike.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/ctc-calculator.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/tools/percentage.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/about.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/privacy.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/terms.html</loc></url>
+  <url><loc>https://devtools-hub.prahlad-pkulal.workers.dev/contact.html</loc></url>
+</urlset>
