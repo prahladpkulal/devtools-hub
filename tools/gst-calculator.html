@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GST Calculator - GST Inclusive & Exclusive Calculator | DevTools Hub</title>
+  <meta name="description" content="Calculate GST amount, CGST, SGST and total price online for free. Add GST to a base price or remove GST from a tax-inclusive amount.">
+  <link rel="canonical" href="https://devtools-hub.prahlad-pkulal.workers.dev/tools/gst-calculator.html">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="/">DevTools<span>Hub</span></a><nav><a href="/">All Tools</a><a href="/privacy.html">Privacy</a></nav></div></header>
+<main class="container tool-page">
+<section class="tool-hero"><p class="eyebrow">FINANCE TOOL</p><h1>GST Calculator</h1><p>Calculate GST, CGST, SGST and the final price. Add GST to a base amount or remove GST from an inclusive price.</p></section>
+<div class="tool-box">
+<div class="row"><div><label for="amount">Amount (₹)</label><input id="amount" class="tool-input" type="number" min="0" step="0.01" value="10000" inputmode="decimal"></div><div><label for="rate">GST rate (%)</label><select id="rate" class="tool-input"><option value="0">0%</option><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div></div>
+<div class="actions"><button class="btn" type="button" onclick="calculateGST(false)">Add GST</button><button class="btn" type="button" onclick="calculateGST(true)">Remove GST</button><button class="btn" type="button" onclick="resetCalculator()">Reset</button></div>
+<div id="result" class="result" aria-live="polite"></div>
+<p class="note">GST rates depend on the goods or services and applicable tax rules. Confirm the applicable rate before invoicing.</p>
+</div>
+<section class="seo-copy">
+<h2>What is GST?</h2><p>Goods and Services Tax (GST) is an indirect tax applied to eligible supplies in India. Depending on the transaction, GST can be represented through components such as CGST and SGST, or IGST for eligible inter-state supplies.</p>
+<h2>How this GST calculator works</h2><p>For an amount before GST, the tax is calculated as amount × GST rate ÷ 100. The total price is the base amount plus GST. For a GST-inclusive amount, the calculator backs out the tax using amount × rate ÷ (100 + rate).</p>
+<h2>CGST and SGST</h2><p>For an eligible intra-state transaction where GST is split equally, CGST is half of the GST amount and SGST is the other half. For example, at an 18% combined GST rate, the illustrative split is 9% CGST and 9% SGST.</p>
+<h2>How to use the GST calculator</h2><ol><li>Enter the price or tax-inclusive amount.</li><li>Select the GST rate.</li><li>Choose Add GST when you have a pre-tax amount, or Remove GST when the entered amount already includes GST.</li><li>Review the GST amount, CGST, SGST and total/base amount.</li></ol>
+<h2>Example</h2><p>For a ₹10,000 pre-tax amount at 18% GST, the GST is ₹1,800 and the illustrative total is ₹11,800. The equal CGST/SGST split would be ₹900 each for an eligible intra-state transaction.</p>
+<h2>Frequently asked questions</h2>
+<h3>Can this calculator remove GST from an inclusive price?</h3><p>Yes. Use Remove GST and enter the amount that already includes GST. The calculator estimates the pre-tax value and embedded GST.</p>
+<h3>Does GST always split into CGST and SGST?</h3><p>No. The tax treatment depends on the transaction. CGST and SGST are commonly used for eligible intra-state supplies, while IGST can apply to eligible inter-state supplies.</p>
+<h3>Does this page determine the correct GST rate?</h3><p>No. Select the rate that applies to your transaction. Tax classification can depend on the goods or services and current rules.</p>
+<h2>Related finance tools</h2><p><a href="/tools/emi-calculator.html">EMI Calculator</a> · <a href="/tools/sip-calculator.html">SIP Calculator</a> · <a href="/tools/percentage.html">Percentage Calculator</a> · <a href="/tools/ctc-calculator.html">CTC / Monthly Salary Calculator</a></p>
+</section></main>
+<footer><div class="container copyright">© 2026 DevTools Hub</div></footer>
+<script>
+function money(n){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n)}
+function calculateGST(remove){
+ const amount=Number(document.getElementById('amount').value), rate=Number(document.getElementById('rate').value), result=document.getElementById('result');
+ if(!Number.isFinite(amount)||amount<0||!Number.isFinite(rate)||rate<0){result.textContent='Enter a valid amount and GST rate.';return}
+ let base,gst,total;
+ if(remove){total=amount;base=rate===0?amount:amount/(1+rate/100);gst=total-base}else{base=amount;gst=base*rate/100;total=base+gst}
+ const cgst=gst/2, sgst=gst/2;
+ result.textContent=(remove?'Base amount: ':'Base amount: ')+money(base)+'\nGST amount: '+money(gst)+'\nCGST (illustrative half): '+money(cgst)+'\nSGST (illustrative half): '+money(sgst)+'\nTotal amount: '+money(total);
+}
+function resetCalculator(){document.getElementById('amount').value=10000;document.getElementById('rate').value=18;calculateGST(false)}
+calculateGST(false);
+</script>
+<script src="/assets/seo.js"></script><script src="/assets/analytics.js"></script>
+</body></html>
