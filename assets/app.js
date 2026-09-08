@@ -1,0 +1,1 @@
+const input=document.getElementById('toolSearch');if(input){input.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();document.querySelectorAll('.tool-card').forEach(c=>{c.style.display=!q||c.dataset.name.includes(q)?'block':'none'})})}
