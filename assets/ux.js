@@ -2,6 +2,7 @@
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   if (navToggle && mainNav) {
+    mainNav.classList.remove('is-open');
     navToggle.addEventListener('click', () => {
       const open = mainNav.classList.toggle('is-open');
       navToggle.setAttribute('aria-expanded', String(open));
@@ -32,6 +33,19 @@
   }
 
   search?.addEventListener('input', applyFilters);
+  search?.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      search.value = '';
+      activeFilter = 'all';
+      filters.forEach(item => {
+        const selected = item.dataset.filter === 'all';
+        item.classList.toggle('active', selected);
+        item.setAttribute('aria-pressed', String(selected));
+      });
+      applyFilters();
+      search.blur();
+    }
+  });
   filters.forEach(button => button.addEventListener('click', () => {
     activeFilter = button.dataset.filter || 'all';
     filters.forEach(item => {
