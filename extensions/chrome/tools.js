@@ -1,54 +1,14 @@
-function prettyJson(input, minify) {
-  const value = JSON.parse(input);
-  return minify ? JSON.stringify(value) : JSON.stringify(value, null, 2);
-}
-function base64Encode(input) { const bytes = new TextEncoder().encode(input); let binary=''; bytes.forEach(b => binary += String.fromCharCode(b)); return btoa(binary); }
-function base64Decode(input) { const binary = atob(input.trim()); const bytes = Uint8Array.from(binary, c => c.charCodeAt(0)); return new TextDecoder().decode(bytes); }
-function jwtDecode(input) {
-  const parts = input.trim().split('.');
-  if (parts.length !== 3) throw new Error('A JWT must contain three dot-separated parts.');
-  const decode = part => {
-    const normalized = part.replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(base64Decode(normalized.padEnd(normalized.length + (4-normalized.length%4)%4, '=')));
-  };
-  return JSON.stringify({header: decode(parts[0]), payload: decode(parts[1]), signature: parts[2]}, null, 2);
-}
-async function sha256(input) {
-  const data = new TextEncoder().encode(input);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-}
-function timestamp(input) {
-  const n = Number(input.trim());
-  if (!Number.isFinite(n)) throw new Error('Enter a Unix timestamp.');
-  const ms = Math.abs(n) < 100000000000 ? n * 1000 : n;
-  return new Date(ms).toISOString();
-}
-function regexTest(input, pattern, flags) {
-  const re = new RegExp(pattern, flags);
-  const matches = input.match(re);
-  return matches ? JSON.stringify({matched:true,matches:Array.from(matches)}, null, 2) : '{\n  "matched": false,\n  "matches": []\n}';
-}
-function convertCase(input, mode) {
-  if (mode === 'upper') return input.toUpperCase();
-  if (mode === 'lower') return input.toLowerCase();
-  if (mode === 'title') return input.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-  if (mode === 'camel') return input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_,c)=>c.toUpperCase()).replace(/^(.)/, (_,c)=>c.toLowerCase());
-  return input;
-}
-async function runTool(tool, input, extra) {
-  switch(tool) {
-    case 'json': return prettyJson(input, false);
-    case 'minify': return prettyJson(input, true);
-    case 'base64-encode': return base64Encode(input);
-    case 'base64-decode': return base64Decode(input);
-    case 'url-encode': return encodeURIComponent(input);
-    case 'url-decode': return decodeURIComponent(input);
-    case 'jwt': return jwtDecode(input);
-    case 'sha256': return await sha256(input);
-    case 'timestamp': return timestamp(input);
-    case 'regex': return regexTest(input, extra.pattern || input, extra.flags || '');
-    case 'case': return convertCase(input, extra.mode || 'upper');
-    default: throw new Error('Unknown tool: ' + tool);
-  }
-}
+function prettyJson(input,minify){const value=JSON.parse(input);return minify?JSON.stringify(value):JSON.stringify(value,null,2)}
+function base64Encode(input){const bytes=new TextEncoder().encode(input);let binary='';bytes.forEach(b=>binary+=String.fromCharCode(b));return btoa(binary)}
+function base64Decode(input){const binary=atob(input.trim());const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));return new TextDecoder().decode(bytes)}
+function jwtDecode(input){const parts=input.trim().split('.');if(parts.length!==3)throw new Error('A JWT must contain three dot-separated parts.');const decode=part=>{const n=part.replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(base64Decode(n.padEnd(n.length+(4-n.length%4)%4,'=')))};return JSON.stringify({header:decode(parts[0]),payload:decode(parts[1]),signature:parts[2]},null,2)}
+async function sha256(input){const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(input));return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+function uuid(){return crypto.randomUUID()}
+function timestamp(input){const n=Number(input.trim());if(!Number.isFinite(n))throw new Error('Enter a Unix timestamp.');const ms=Math.abs(n)<100000000000?n*1000:n;return new Date(ms).toISOString()}
+function regexTest(input,pattern,flags){const re=new RegExp(pattern,flags);const matches=input.match(re);return JSON.stringify({matched:!!matches,matches:matches?Array.from(matches):[]},null,2)}
+function convertCase(input,mode){if(mode==='upper')return input.toUpperCase();if(mode==='lower')return input.toLowerCase();if(mode==='title')return input.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());if(mode==='camel')return input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g,(_,c)=>c.toUpperCase()).replace(/^(.)/,(_,c)=>c.toLowerCase());return input}
+function htmlFormat(input){return input.replace(/>\s*</g,'>\n<').split('\n').map(x=>x.trim()).join('\n')}
+function urlParser(input){const u=new URL(input);return JSON.stringify({href:u.href,protocol:u.protocol,username:u.username,host:u.host,hostname:u.hostname,port:u.port,path:u.pathname,query:u.search,hash:u.hash},null,2)}
+function colorConvert(input){const h=input.trim().replace('#','');if(!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(h))throw new Error('Enter a 3 or 6 digit hex color.');const hex=h.length===3?h.split('').map(x=>x+x).join(''):h;const r=parseInt(hex.slice(0,2),16),g=parseInt(hex.slice(2,4),16),b=parseInt(hex.slice(4,6),16);return JSON.stringify({hex:'#'+hex.toUpperCase(),rgb:'rgb('+r+', '+g+', '+b+')'},null,2)}
+function diffText(input){const p=input.split(/\n---\n/);if(p.length!==2)throw new Error('Put the two texts on separate blocks using a line containing ---');const a=p[0].split('\n'),b=p[1].split('\n');const out=[];const max=Math.max(a.length,b.length);for(let i=0;i<max;i++){if(a[i]===b[i])out.push('  '+(a[i]??''));else{if(a[i]!==undefined)out.push('- '+a[i]);if(b[i]!==undefined)out.push('+ '+b[i])}}return out.join('\n')}
+async function runTool(tool,input,extra){switch(tool){case'json':return prettyJson(input,false);case'minify':return prettyJson(input,true);case'base64-encode':return base64Encode(input);case'base64-decode':return base64Decode(input);case'url-encode':return encodeURIComponent(input);case'url-decode':return decodeURIComponent(input);case'jwt':return jwtDecode(input);case'sha256':return await sha256(input);case'uuid':return uuid();case'timestamp':return timestamp(input);case'regex':return regexTest(input,extra.pattern||input,extra.flags||'');case'case':return convertCase(input,extra.mode||'upper');case'html':return htmlFormat(input);case'url-parser':return urlParser(input);case'color':return colorConvert(input);case'diff':return diffText(input);default:throw new Error('Unknown tool: '+tool)}}
