@@ -1,0 +1,10 @@
+{
+  "name": "DevTools Hub",
+  "short_name": "DevTools Hub",
+  "description": "Free browser-based developer and finance tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "lang": "en",
+  "icons": []
+}
