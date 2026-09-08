@@ -1,1 +1,6 @@
-const input=document.getElementById('toolSearch');if(input){input.addEventListener('input',()=>{const q=input.value.toLowerCase().trim();document.querySelectorAll('.tool-card').forEach(c=>{c.style.display=!q||c.dataset.name.includes(q)?'block':'none'})})}
+const input=document.getElementById('toolSearch');
+if(input && !window.DevToolsHubUX){
+  input.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){input.value='';input.dispatchEvent(new Event('input'));input.blur();}
+  });
+}
