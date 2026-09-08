@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIP Calculator - Systematic Investment Plan Calculator | DevTools Hub</title>
+  <meta name="description" content="Calculate SIP maturity value, estimated returns and total investment online for free. Adjust monthly investment, expected return and tenure instantly.">
+  <link rel="canonical" href="https://devtools-hub.prahlad-pkulal.workers.dev/tools/sip-calculator.html">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="/">DevTools<span>Hub</span></a><nav><a href="/">All Tools</a><a href="/privacy.html">Privacy</a></nav></div></header>
+<main class="container tool-page">
+<section class="tool-hero"><p class="eyebrow">FINANCE TOOL</p><h1>SIP Calculator</h1><p>Estimate the future value of a monthly SIP investment, total investment and potential returns.</p></section>
+<div class="tool-box">
+<div class="row"><div><label for="monthly">Monthly investment (₹)</label><input id="monthly" class="tool-input" type="number" min="1" step="500" value="10000" inputmode="decimal"></div><div><label for="rate">Expected annual return (%)</label><input id="rate" class="tool-input" type="number" min="0" step="0.1" value="12" inputmode="decimal"></div></div>
+<div class="row"><div><label for="years">Investment period (years)</label><input id="years" class="tool-input" type="number" min="1" max="60" step="1" value="10" inputmode="numeric"></div></div>
+<div class="actions"><button class="btn" type="button" onclick="calculateSIP()">Calculate SIP</button><button class="btn" type="button" onclick="resetCalculator()">Reset</button></div>
+<div id="result" class="result" aria-live="polite"></div>
+<p class="note">This is an illustration, not a guaranteed return. Market-linked investments can gain or lose value.</p>
+</div>
+<section class="seo-copy">
+<h2>What is a SIP?</h2><p>A Systematic Investment Plan (SIP) is a way to invest a fixed amount at regular intervals, commonly monthly, into a mutual fund or another investment product that supports recurring contributions. The amount invested and the investment value can change over time.</p>
+<h2>How SIP returns are estimated</h2><p>This calculator uses a monthly compounding model. For a monthly investment P, monthly rate r and n monthly contributions, the estimated future value is P × ((1+r)<sup>n</sup> − 1) ÷ r × (1+r). When the expected return is zero, the future value equals the total amount invested.</p>
+<h2>How to use the SIP calculator</h2><ol><li>Enter the amount you plan to invest every month.</li><li>Enter an assumed annual return.</li><li>Choose the investment period.</li><li>Review total investment, estimated returns and estimated maturity value.</li></ol>
+<h2>Example</h2><p>If you invest ₹10,000 per month for 10 years and assume a 12% annual return, the calculator estimates the potential future value using monthly compounding. The actual result may be different because investment returns are not fixed.</p>
+<h2>Frequently asked questions</h2>
+<h3>Is SIP return guaranteed?</h3><p>No. A SIP is an investment method, not a guaranteed-return product. The result shown here is an estimate based on the return assumption you enter.</p>
+<h3>Can I change the monthly SIP amount?</h3><p>Yes. Enter any positive monthly contribution supported by your investment plan and compare different scenarios.</p>
+<h3>Does this calculator require my personal information?</h3><p>No. It only uses the numbers you enter in the browser to perform the calculation.</p>
+<h2>Related finance tools</h2><p><a href="/tools/emi-calculator.html">EMI Calculator</a> · <a href="/tools/gst-calculator.html">GST Calculator</a> · <a href="/tools/percentage.html">Percentage Calculator</a> · <a href="/tools/salary-hike.html">Salary Hike Calculator</a></p>
+</section></main>
+<footer><div class="container copyright">© 2026 DevTools Hub</div></footer>
+<script>
+function money(n){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n)}
+function calculateSIP(){
+ const P=Number(document.getElementById('monthly').value), annual=Number(document.getElementById('rate').value), years=Number(document.getElementById('years').value), result=document.getElementById('result');
+ if(!Number.isFinite(P)||P<=0||!Number.isFinite(annual)||annual<0||!Number.isFinite(years)||years<=0||years>60){result.textContent='Enter a valid monthly investment, return rate and period.';return}
+ const n=Math.round(years*12), r=annual/1200, invested=P*n, future=r===0?invested:P*((Math.pow(1+r,n)-1)/r)*(1+r), returns=future-invested;
+ result.textContent='Total investment: '+money(invested)+'\nEstimated returns: '+money(returns)+'\nEstimated maturity value: '+money(future);
+}
+function resetCalculator(){document.getElementById('monthly').value=10000;document.getElementById('rate').value=12;document.getElementById('years').value=10;calculateSIP()}
+calculateSIP();
+</script>
+<script src="/assets/seo.js"></script><script src="/assets/analytics.js"></script>
+</body></html>

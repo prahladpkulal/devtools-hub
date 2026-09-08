@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EMI Calculator - Loan EMI Calculator Online | DevTools Hub</title>
+  <meta name="description" content="Calculate monthly loan EMI, total interest and total repayment online for free. Use this home loan and personal loan EMI calculator with an amortization schedule.">
+  <link rel="canonical" href="https://devtools-hub.prahlad-pkulal.workers.dev/tools/emi-calculator.html">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav"><a class="brand" href="/">DevTools<span>Hub</span></a><nav><a href="/">All Tools</a><a href="/privacy.html">Privacy</a></nav></div></header>
+<main class="container tool-page">
+<section class="tool-hero"><p class="eyebrow">FINANCE TOOL</p><h1>EMI Calculator</h1><p>Calculate your monthly loan EMI, total interest and total repayment instantly in your browser.</p></section>
+<div class="tool-box">
+<div class="row"><div><label for="principal">Loan amount (₹)</label><input id="principal" class="tool-input" type="number" min="1" step="1000" value="1000000" inputmode="decimal"></div><div><label for="rate">Annual interest rate (%)</label><input id="rate" class="tool-input" type="number" min="0" step="0.01" value="8.5" inputmode="decimal"></div></div>
+<div class="row"><div><label for="years">Loan tenure (years)</label><input id="years" class="tool-input" type="number" min="1" max="50" step="1" value="20" inputmode="numeric"></div></div>
+<div class="actions"><button class="btn" type="button" onclick="calculateEMI()">Calculate EMI</button><button class="btn" type="button" onclick="resetCalculator()">Reset</button></div>
+<div id="result" class="result" aria-live="polite"></div>
+<div id="scheduleWrap"></div>
+<p class="note">Estimate only. Actual EMI can vary because of lender fees, rate changes, insurance, taxes and repayment terms.</p>
+</div>
+<section class="seo-copy">
+<h2>What is EMI?</h2><p>EMI stands for Equated Monthly Instalment. It is the regular amount paid toward a loan each month. An EMI generally contains both interest and a portion of the principal, with the interest component usually higher at the beginning of a standard reducing-balance loan.</p>
+<h2>EMI formula</h2><p>For a reducing-balance loan, EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1), where P is the principal, r is the monthly interest rate and n is the number of monthly payments. For a zero-interest loan, EMI is simply the principal divided by the number of payments.</p>
+<h2>How to use this loan EMI calculator</h2><ol><li>Enter the loan amount.</li><li>Enter the annual interest rate.</li><li>Enter the loan tenure in years.</li><li>Select Calculate EMI to see monthly EMI, total interest and total repayment.</li></ol>
+<h2>Example</h2><p>For a ₹10,00,000 loan at 8.5% annual interest for 20 years, the calculator estimates the monthly EMI and shows how the payment is split between principal and interest over the loan period.</p>
+<h2>Frequently asked questions</h2>
+<h3>Can I use this for a home loan?</h3><p>Yes. Enter the home loan principal, annual interest rate and tenure to estimate the monthly payment.</p>
+<h3>Can I use this for a personal loan?</h3><p>Yes. The same reducing-balance EMI formula can be used for many personal, auto and home loans. Check your lender's repayment method for the exact amount.</p>
+<h3>Does the calculator store my loan details?</h3><p>No. The calculation runs in your browser and the values are not uploaded by this page.</p>
+<h2>Related finance tools</h2><p><a href="/tools/sip-calculator.html">SIP Calculator</a> · <a href="/tools/gst-calculator.html">GST Calculator</a> · <a href="/tools/salary-hike.html">Salary Hike Calculator</a> · <a href="/tools/percentage.html">Percentage Calculator</a></p>
+</section></main>
+<footer><div class="container copyright">© 2026 DevTools Hub</div></footer>
+<script>
+function money(n){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n)}
+function calculateEMI(){
+ const P=Number(document.getElementById('principal').value), annual=Number(document.getElementById('rate').value), years=Number(document.getElementById('years').value), result=document.getElementById('result');
+ if(!Number.isFinite(P)||P<=0||!Number.isFinite(annual)||annual<0||!Number.isFinite(years)||years<=0||years>50){result.textContent='Enter a valid loan amount, interest rate and tenure.';document.getElementById('scheduleWrap').innerHTML='';return}
+ const n=Math.round(years*12), r=annual/1200, emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1), total=emi*n, interest=total-P;
+ result.textContent='Monthly EMI: '+money(emi)+'\nTotal interest: '+money(interest)+'\nTotal repayment: '+money(total);
+ let balance=P, rows=''; const limit=Math.min(n,12);
+ for(let m=1;m<=n;m++){const interestPart=balance*r, principalPart=Math.min(balance,emi-interestPart);balance=Math.max(0,balance-principalPart);if(m<=limit||m===n)rows+='<tr><td>'+m+'</td><td>'+money(emi)+'</td><td>'+money(principalPart)+'</td><td>'+money(interestPart)+'</td><td>'+money(balance)+'</td></tr>'}
+ document.getElementById('scheduleWrap').innerHTML='<h3>Amortization schedule</h3><div style="overflow:auto"><table><thead><tr><th>Month</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+(n>12?'<p class="note">Showing the first 12 months and the final payment.</p>':'');
+}
+function resetCalculator(){document.getElementById('principal').value=1000000;document.getElementById('rate').value=8.5;document.getElementById('years').value=20;document.getElementById('result').textContent='';document.getElementById('scheduleWrap').innerHTML=''}
+calculateEMI();
+</script>
+<script src="/assets/seo.js"></script><script src="/assets/analytics.js"></script>
+</body></html>
