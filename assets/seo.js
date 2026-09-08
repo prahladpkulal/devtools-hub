@@ -26,32 +26,43 @@
   addMeta({ property: 'og:title', content: title });
   addMeta({ property: 'og:description', content: description });
   addMeta({ property: 'og:url', content: canonicalUrl });
+  addMeta({ property: 'og:site_name', content: 'DevTools Hub' });
   addMeta({ name: 'twitter:card', content: 'summary' });
   addMeta({ name: 'twitter:title', content: title });
   addMeta({ name: 'twitter:description', content: description });
 
-  const siteSchema = {
+  const toolHeading = document.querySelector('.tool-hero h1');
+  const schema = {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'DevTools Hub',
-    url: window.location.origin + '/',
-    description: 'Free browser-based developer and finance tools.'
+    '@type': toolHeading ? 'WebApplication' : 'WebSite',
+    name: toolHeading ? toolHeading.textContent.trim() : 'DevTools Hub',
+    url: canonicalUrl,
+    description,
+    inLanguage: 'en',
+    isAccessibleForFree: true
   };
 
-  const toolHeading = document.querySelector('.tool-hero h1');
   if (toolHeading) {
-    siteSchema['@type'] = 'WebApplication';
-    siteSchema.applicationCategory = 'DeveloperApplication';
-    siteSchema.operatingSystem = 'Any';
-    siteSchema.name = toolHeading.textContent.trim();
-    siteSchema.url = canonicalUrl;
-    siteSchema.offers = { '@type': 'Offer', price: '0', priceCurrency: 'USD' };
+    schema.applicationCategory = 'DeveloperApplication';
+    schema.operatingSystem = 'Any';
+    schema.offers = { '@type': 'Offer', price: '0', priceCurrency: 'USD' };
+  } else {
+    schema.url = window.location.origin + '/';
+    schema.potentialAction = {
+      '@type': 'SearchAction',
+      target: `${window.location.origin}/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    };
   }
 
-  const schema = document.createElement('script');
-  schema.type = 'application/ld+json';
-  schema.textContent = JSON.stringify(siteSchema);
-  document.head.appendChild(schema);
+  const existingSchema = document.head.querySelector('script[data-devtools-schema]');
+  if (!existingSchema) {
+    const schemaScript = document.createElement('script');
+    schemaScript.type = 'application/ld+json';
+    schemaScript.dataset.devtoolsSchema = 'true';
+    schemaScript.textContent = JSON.stringify(schema);
+    document.head.appendChild(schemaScript);
+  }
 
   window.devToolsHub = window.devToolsHub || {};
   window.devToolsHub.track = (eventName, params = {}) => {
