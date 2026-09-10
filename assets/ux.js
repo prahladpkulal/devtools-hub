@@ -50,14 +50,17 @@
     if (!b) return a.length;
     const previous = Array.from({ length: b.length + 1 }, (_, i) => i);
     for (let i = 1; i <= a.length; i++) {
+      let diagonal = previous[0];
+      previous[0] = i;
       let left = i;
       for (let j = 1; j <= b.length; j++) {
         const current = previous[j];
         previous[j] = Math.min(
           previous[j] + 1,
           left + 1,
-          previous[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+          diagonal + (a[i - 1] === b[j - 1] ? 0 : 1)
         );
+        diagonal = current;
         left = previous[j];
       }
     }
@@ -94,7 +97,7 @@
           const threshold = word.length >= 7 ? 2 : 1;
           if (closest <= threshold) wordScore += 30;
         });
-        if (wordScore) best = Math.max(best, 50 + wordScore);
+        if (wordScore === queryWords.length * 30) best = Math.max(best, 60);
       }
     });
 
@@ -120,11 +123,16 @@
       if (show) visible++;
     });
     if (noResults) noResults.hidden = visible !== 0;
+    document.querySelectorAll('#developer-tools, #finance-tools').forEach(section => {
+      section.hidden = !Array.from(section.querySelectorAll('.tool-card')).some(card => !card.hidden);
+    });
+    const count = document.getElementById('resultCount');
+    if (count) count.textContent = visible + (visible === 1 ? ' tool' : ' tools') + (query || activeFilter !== 'all' ? ' found' : ' available');
   }
 
   search?.addEventListener('input', applyFilters);
   search?.addEventListener('keydown', event => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && search.value.trim()) {
       const bestTool = findBestTool(search.value);
       if (bestTool) {
         bestTool.click();
@@ -155,5 +163,17 @@
     applyFilters();
   }));
 
+  document.getElementById('resetSearch')?.addEventListener('click', () => {
+    search.value = '';
+    filters.find(button => button.dataset.filter === 'all')?.click();
+    search.focus();
+  });
+  mainNav?.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && mainNav.classList.contains('is-open')) {
+      mainNav.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.focus();
+    }
+  });
   applyFilters();
 })();
