@@ -4,7 +4,7 @@
   const media = window.matchMedia('(prefers-color-scheme: dark)');
 
   function getPreference() {
-    const saved = localStorage.getItem(KEY);
+    let saved; try { saved = localStorage.getItem(KEY); } catch {}
     return saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system';
   }
 
@@ -21,12 +21,13 @@
   }
 
   function setPreference(preference) {
-    localStorage.setItem(KEY, preference);
+    try { localStorage.setItem(KEY, preference); } catch {}
     applyTheme(preference);
   }
 
   window.devToolsHubTheme = { getPreference, setPreference, applyTheme };
   applyTheme(getPreference());
+  document.addEventListener('DOMContentLoaded', () => applyTheme(getPreference()));
   media.addEventListener?.('change', () => {
     if (getPreference() === 'system') applyTheme('system');
   });

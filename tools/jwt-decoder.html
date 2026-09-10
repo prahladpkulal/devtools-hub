@@ -6,7 +6,7 @@
 <meta name="description" content="Decode and inspect JWT header and payload online for free. Browser-based JWT decoder with no signup or upload required.">
 <link rel="canonical" href="https://devtools-hub.prahlad-pkulal.workers.dev/tools/jwt-decoder.html">
 <link rel="stylesheet" href="/assets/style.css">
-</head>
+<script src="/assets/theme.js"></script><link rel="stylesheet" href="/assets/refinements.css"></head>
 <body><header class="site-header"><div class="container nav"><a class="brand" href="/">DevTools<span>Hub</span></a><nav><a href="/">All Tools</a><a href="/privacy.html">Privacy</a></nav></div></header>
 <main class="container tool-page"><section class="tool-hero"><p class="eyebrow">DEVELOPER TOOL</p><h1>JWT Decoder & Inspector</h1><p>Decode a JSON Web Token header and payload directly in your browser. No token is uploaded.</p></section>
 <div class="tool-box"><textarea id="token" placeholder="Paste your JWT here (eyJhbGciOiJIUzI1NiIs...)" aria-label="JWT token"></textarea><div class="actions"><button class="btn" onclick="decodeJwt()">Decode JWT</button><button class="btn alt" onclick="document.getElementById('token').value='';document.getElementById('result').textContent=''">Clear</button></div><div id="result" class="result" aria-live="polite"></div><p class="note">Security note: decoding a JWT does not verify its signature. Never paste passwords, private keys or other secrets into a third-party site.</p></div>
